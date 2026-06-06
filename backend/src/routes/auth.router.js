@@ -1,11 +1,17 @@
 import express from "express"
-import { login, logout, registerUser } from "../controller/auth.controller.js"
+import { foodPartnerRegistration, login, loginFoodPartner, logout, logOutFoodPartner, registerUser } from "../controller/auth.controller.js"
 
 //creating router 
 const router = express.Router()
 
-// router for register user
+// router for  user
 router.post("/user/register",registerUser)
 router.post("/user/login",login)
 router.get("/user/logout",logout)
+
+
+//Router for Food Partner
+router.post("/food-partner/register", foodPartnerRegistration)
+router.post("/food-partner/login",loginFoodPartner)
+router.get("/food-partner/logout",logOutFoodPartner)
 export default router

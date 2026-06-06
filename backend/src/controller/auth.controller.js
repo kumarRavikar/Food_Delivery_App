@@ -118,3 +118,52 @@ export async function foodPartnerRegistration(req, res){
    }
 
 } 
+ 
+// login food partner 
+export async function loginFoodPartner(req, res){
+    try {
+         const {email, password} = req.body
+         const foodPartnerExixt = await foodPartnerModel.findOne({email})
+         if(!foodPartnerExixt){
+            return res.status(400).json({
+                message:"Invalide email and password"
+            })
+         }
+         const isPasswordValid = await bcrypt.compare(password,foodPartnerExixt.password);
+         if(!isPasswordValid){
+            return res.status(400).json({
+                message:"Invalide email and password"
+            })
+         }
+         const token = jwt.sign({_id:foodPartnerExixt._id},process.env.JWT_SECRET)
+         res.cookie("token",token)
+         res.status(200).json({
+            message:"Food partner logged in successfully",
+            foodPartnerExixt:{
+                _id:foodPartnerExixt._id,
+                name:foodPartnerExixt.name,
+                email:foodPartnerExixt.email
+            }
+         })
+    } catch (error) {
+        res.status(500).json({
+            message:`Internal server error in login Food Partner ${error.message}`,
+            
+        })
+    }
+}
+
+// logout food partner 
+export async function logOutFoodPartner(req, res){
+    try {
+        res.clearCookie("token")
+        res.status(200).json({
+            message:"Food Partner logOut successfully"
+        })
+    } catch (error) {
+        res.status(500).json({
+            message:`Internal server error in logout: ${error.message}`
+        })
+    }
+    
+}
