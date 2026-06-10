@@ -1,13 +1,16 @@
-import ImageKit from "@imagekit/nodejs"
-const imagekit = new ImageKit({
-    publicKey:process.env.IMAGEKIT_PUBLIC_KEY,
-    privateKey:process.env.IMAGEKIT_PRIVATE_KEY,
-    urlEndPoint:process.env.IMAGEKIT_URL_ENDPOINT
+import {v2 as cloudnery } from "cloudinary"
+import dotenv from "dotenv"
+dotenv.config()
+cloudnery.config({
+    cloud_name:process.env.CLOUDNERY_NAME,
+    api_key:process.env.CLOUDNERY_API_KEY,
+    api_secret:process.env.CLOUDNERY_PRIVATE_KEY
 })
-export async function fileUpload(file,fileName){
-    const result = await imagekit.upload({
-        file:file,
-        fileName:fileName
-    })
-    return result
-} 
+export async function uploadfile(filePath) {
+     const result = await cloudnery.uploader.upload(filePath,{
+        resource_type:"video",
+        quality:"auto",  //this object used to compress video 
+        fetch_format :"mp4"
+     })
+     return result
+}
