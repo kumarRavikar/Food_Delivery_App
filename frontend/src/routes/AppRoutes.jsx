@@ -5,6 +5,7 @@ import UserLogin from '../pages/UserLogin'
 import PartnerRegister from '../pages/PartnerRegister'
 import PartnerLogin from '../pages/PartnerLogin'
 import ChooseAccount from '../pages/ChooseAccount'
+import Home from '../general/Home'
 
 const AppRoutes = () => {
   return (
@@ -15,7 +16,8 @@ const AppRoutes = () => {
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/food-partner/register" element={<PartnerRegister />} />
         <Route path="/food-partner/login" element={<PartnerLogin />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} /> 
+        <Route path="/home" element={<Home />} />
       </Routes>
     </BrowserRouter>
   )

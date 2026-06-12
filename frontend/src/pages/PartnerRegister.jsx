@@ -5,7 +5,7 @@ const PartnerRegister = () => (
   <AuthForm
     title="Partner with us"
     subtitle="Register your food partner account and start receiving orders."
-    showName
+    showPartnerFields
     submitLabel="Register"
     bottomText="Already have an account?"
     bottomLinkText="Login"

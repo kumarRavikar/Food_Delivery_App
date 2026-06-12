@@ -6,10 +6,12 @@ const AuthForm = ({
   title,
   subtitle,
   showName,
+  showPartnerFields,
   submitLabel,
   bottomText,
   bottomLinkText,
   bottomLinkTo,
+  onSubmit,
 }) => {
   return (
     <div className="auth-page">
@@ -19,25 +21,49 @@ const AuthForm = ({
           <p>{subtitle}</p>
         </div>
 
-        <form className="auth-form" noValidate>
+        <form className="auth-form" noValidate onSubmit={onSubmit}>
           {showName && (
             <label className="auth-label">
               <span>Name</span>
-              <input type="text" placeholder="Your name" className="auth-input" />
+              <input type="text" placeholder="Your name" name="fullName" className="auth-input" />
             </label>
+          )}
+
+          {showPartnerFields && (
+            <>
+              <label className="auth-label">
+                <span>Business Name</span>
+                <input type="text" placeholder="Your business name" name="businessName" className="auth-input" />
+              </label>
+
+              <label className="auth-label">
+                <span>Contact Name</span>
+                <input type="text" placeholder="Contact person name" className="auth-input" />
+              </label>
+
+              <label className="auth-label">
+                <span>Phone No</span>
+                <input type="tel" placeholder="123-456-7890" name="phoneNo" className="auth-input" />
+              </label>
+
+              <label className="auth-label">
+                <span>Address</span>
+                <textarea placeholder="Business address" className="auth-textarea" rows="4" name="address" />
+              </label>
+            </>
           )}
 
           <label className="auth-label">
             <span>Email</span>
-            <input type="email" placeholder="you@example.com" className="auth-input" />
+            <input type="email" placeholder="you@example.com" className="auth-input" name="email" />
           </label>
 
           <label className="auth-label">
             <span>Password</span>
-            <input type="password" placeholder="Enter password" className="auth-input" />
+            <input type="password" placeholder="Enter password" className="auth-input" name="password" />
           </label>
 
-          <button type="button" className="auth-button">
+          <button type="submit" className="auth-button">
             {submitLabel}
           </button>
         </form>
